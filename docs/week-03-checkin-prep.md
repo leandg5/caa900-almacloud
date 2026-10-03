@@ -47,3 +47,15 @@ Instructor decision:
 | # | Action agreed at the check-in | Owner | Due |
 |---|---|---|---|
 | | | | |
+
+## 5. Readiness and Gap Analysis
+
+| Gap area | Current state | Target state | Gap size |
+|---|---|---|---|
+| People | Solo student, no prior AWS deployment experience | Able to deploy full serverless stack on AWS independently | High |
+| Process | No CI/CD pipeline exists yet | GitHub Actions deploys automatically on every push | Medium |
+| Technology | No AWS resources created yet, Learner Lab access pending | Full serverless stack running on Learner Lab | High |
+
+Biggest gap: Technology. No AWS resources exist yet because Learner Lab access has not been provided by the instructor as of October 3.
+
+Readiness score: 4 out of 10. Proposal, architecture, repository, and documentation are complete. Infrastructure deployment has not started due to missing Learner Lab access.
