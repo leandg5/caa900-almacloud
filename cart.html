@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ALMA - Cart</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
 <style>
 :root { --navy: #0F1B2E; --gold: #B87333; --cream: #F2E9DC; }
 body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--cream); }
@@ -26,12 +27,15 @@ nav a { color: var(--cream); text-decoration: none; margin-left: 20px; font-size
 .empty-cart { text-align: center; padding: 60px; color: #666; }
 .empty-cart a { color: var(--gold); text-decoration: none; font-weight: 600; }
 footer { background: var(--navy); color: var(--cream); text-align: center; padding: 30px; font-size: 0.85rem; letter-spacing: 2px; margin-top: 60px; }
+#card-element { border: 1px solid #ddd; border-radius: 6px; padding: 12px; background: white; margin-bottom: 15px; }
+#card-errors { color: red; font-size: 0.85rem; margin-bottom: 10px; }
+.test-card-info { background: #f0f8ff; border-radius: 6px; padding: 10px; margin-bottom: 15px; font-size: 0.8rem; color: #666; }
 </style>
 </head>
 <body>
 <header>
   <div><h1>ALMA</h1><p>TASTE THE SOUL OF VENEZUELA</p></div>
-  <nav><a href="index.html">Products</a><a href="cart.html">Cart</a><a href="#">Login</a></nav>
+  <nav><a href="index.html">Products</a><a href="cart.html">Cart</a></nav>
 </header>
 
 <div class="cart-container">
@@ -43,13 +47,25 @@ footer { background: var(--navy); color: var(--cream); text-align: center; paddi
       <span>Total</span>
       <span id="cartTotal">$0.00</span>
     </div>
-    <button class="btn-checkout" onclick="checkout()">Checkout with Stripe</button>
+    <div class="test-card-info">
+      Test card: 4242 4242 4242 4242 | Any future date | Any CVC
+    </div>
+    <div id="card-element"></div>
+    <div id="card-errors"></div>
+    <button class="btn-checkout" id="checkoutBtn" onclick="handlePayment()">Pay with Stripe</button>
   </div>
 </div>
 
 <footer>ALMA · TASTE THE SOUL OF VENEZUELA · TORONTO</footer>
 
 <script>
+const STRIPE_KEY = 'pk_test_51UQeA4RxRV699S9tpHAe5Goy2ai0vKJHeQyqoTTMaOv9D73WNzvdKBpyowc7mFoGsBYkC2Hz4uaEoucgwCA1C54N00FcjNUMwj';
+const stripe = Stripe(STRIPE_KEY);
+const elements = stripe.elements();
+const cardElement = elements.create('card', {
+  style: { base: { fontFamily: 'Montserrat, sans-serif', fontSize: '16px', color: '#0F1B2E' } }
+});
+
 function renderCart() {
   const cart = JSON.parse(localStorage.getItem('alma-cart') || '[]');
   const cartItems = document.getElementById('cartItems');
@@ -81,6 +97,7 @@ function renderCart() {
 
   document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
   cartSummary.style.display = 'block';
+  cardElement.mount('#card-element');
 }
 
 function removeItem(index) {
@@ -90,12 +107,26 @@ function removeItem(index) {
   renderCart();
 }
 
-async function checkout() {
+async function handlePayment() {
+  const btn = document.getElementById('checkoutBtn');
+  btn.textContent = 'Processing...';
+  btn.disabled = true;
+
+  const {paymentMethod, error} = await stripe.createPaymentMethod({
+    type: 'card',
+    card: cardElement
+  });
+
+  if (error) {
+    document.getElementById('card-errors').textContent = error.message;
+    btn.textContent = 'Pay with Stripe';
+    btn.disabled = false;
+    return;
+  }
+
   const cart = JSON.parse(localStorage.getItem('alma-cart') || '[]');
-  if (cart.length === 0) return;
-  
   const total = cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
-  
+
   try {
     const response = await fetch('https://dnkjlq3ie4.execute-api.us-east-1.amazonaws.com/orders', {
       method: 'POST',
@@ -103,18 +134,17 @@ async function checkout() {
       body: JSON.stringify({
         items: cart,
         total: total.toFixed(2),
-        email: 'ldelgado8@myseneca.ca'
+        email: 'leandrodg5@gmail.com',
+        paymentMethodId: paymentMethod.id
       })
     });
-    
+
     const result = await response.json();
-    
+
     if (result.success) {
       localStorage.setItem('alma-order', JSON.stringify(cart));
       localStorage.removeItem('alma-cart');
       window.location.href = 'confirmation.html';
-    } else {
-      alert('Error processing order. Please try again.');
     }
   } catch (error) {
     localStorage.setItem('alma-order', JSON.stringify(cart));
