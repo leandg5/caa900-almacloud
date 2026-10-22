@@ -9,19 +9,18 @@
 <style>
 :root { --navy: #0F1B2E; --gold: #B87333; --cream: #F2E9DC; }
 body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--cream); }
-header { background: var(--navy); padding: 16px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(184,115,51,0.25); }
-.header-brand { display: flex; flex-direction: column; gap: 2px; }
-header h1 { color: var(--gold); font-family: 'Cormorant Garamond', serif; margin: 0; font-size: 2.4rem; font-weight: 300; letter-spacing: 8px; text-transform: uppercase; line-height: 1; }
-header p { color: rgba(242,233,220,0.55); margin: 0; font-size: 0.6rem; letter-spacing: 4px; font-family: 'Montserrat', sans-serif; font-weight: 200; text-transform: uppercase; }
-nav { display: flex; align-items: center; gap: 4px; }
-nav a { color: rgba(242,233,220,0.75); text-decoration: none; padding: 6px 14px; font-size: 0.75rem; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s; }
+header { background: var(--navy); padding: 18px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(184,115,51,0.2); }
+.header-brand { display: flex; flex-direction: column; gap: 3px; }
+header h1 { color: var(--gold); font-family: 'Cormorant Garamond', serif; margin: 0; font-size: 2.2rem; font-weight: 300; letter-spacing: 10px; text-transform: uppercase; line-height: 1; }
+header p { color: rgba(242,233,220,0.4); margin: 0; font-size: 0.55rem; letter-spacing: 5px; font-family: 'Montserrat', sans-serif; font-weight: 200; text-transform: uppercase; }
+nav { display: flex; align-items: center; gap: 8px; }
+nav a { color: rgba(242,233,220,0.6); text-decoration: none; padding: 6px 16px; font-size: 0.65rem; cursor: pointer; font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; transition: color 0.2s; }
 nav a:hover { color: var(--gold); }
 .hero { position: relative; text-align: center; overflow: hidden; }
-.hero img { width: 100%; display: block; height: 580px; object-fit: cover; object-position: center 30%; }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,27,46,0.45) 0%, rgba(15,27,46,0.15) 40%, rgba(15,27,46,0.6) 100%); z-index: 1; }
-.hero-text { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 60px 20px; }
-.hero h2 { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; font-style: italic; color: var(--cream); margin: 0 0 14px 0; letter-spacing: 4px; text-shadow: 0 2px 30px rgba(0,0,0,0.5); line-height: 1; }
-.hero p { font-size: 0.65rem; letter-spacing: 8px; color: var(--gold); margin: 0; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 300; }
+.hero img { width: 100%; display: block; height: 580px; object-fit: cover; object-position: center 10%; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,27,46,0.15) 0%, rgba(15,27,46,0.55) 45%, rgba(15,27,46,0.55) 65%, rgba(15,27,46,0.3) 100%); z-index: 1; }
+.hero-text { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 40px 20px; }
+.hero-text p { font-size: 0.75rem; letter-spacing: 10px; color: var(--cream); margin: 0; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 400; text-shadow: 0 1px 8px rgba(0,0,0,0.8); }
 .products { padding: 60px 40px; }
 .products h2 { font-family: 'Playfair Display', serif; color: var(--navy); text-align: center; margin-bottom: 40px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
@@ -67,7 +66,6 @@ footer { background: var(--navy); color: var(--cream); text-align: center; paddi
   <img src="showcase.png" alt="ALMA - Venezuelan Flavours">
   <div class="hero-overlay"></div>
   <div class="hero-text">
-    <h2>Taste the Soul of Venezuela</h2>
     <p>Beverages &nbsp;·&nbsp; Bakery &nbsp;·&nbsp; Market</p>
   </div>
 </div>
