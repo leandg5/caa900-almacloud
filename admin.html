@@ -39,7 +39,7 @@ footer { background: var(--navy); color: var(--cream); text-align: center; paddi
 
 <div class="dashboard">
   <h2>Owner Dashboard</h2>
-  
+
   <div class="stats">
     <div class="stat-card">
       <h3>Total Orders</h3>
@@ -83,10 +83,11 @@ const API_URL = 'https://dnkjlq3ie4.execute-api.us-east-1.amazonaws.com';
 async function loadOrders() {
   try {
     const response = await fetch(`${API_URL}/orders`);
-    const orders = await response.json();
-    
+    const data = await response.json();
+    const orders = data.orders || [];
+
     const tbody = document.getElementById('ordersBody');
-    
+
     if (!orders || orders.length === 0) {
       tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#666;padding:30px">No orders yet</td></tr>';
       return;
@@ -99,7 +100,7 @@ async function loadOrders() {
       totalRevenue += parseFloat(order.total || 0);
       const items = Array.isArray(order.items) ? order.items.map(i => i.name).join(', ') : 'N/A';
       const date = order.createdAt ? new Date(order.createdAt).toLocaleDateString() : 'N/A';
-      
+
       tbody.innerHTML += `
         <tr>
           <td>${order.id}</td>
@@ -115,7 +116,7 @@ async function loadOrders() {
     document.getElementById('totalRevenue').textContent = '$' + totalRevenue.toFixed(2);
 
   } catch (error) {
-    document.getElementById('ordersBody').innerHTML = 
+    document.getElementById('ordersBody').innerHTML =
       '<tr><td colspan="6" style="text-align:center;color:#666;padding:30px">Unable to load orders right now</td></tr>';
   }
 }
