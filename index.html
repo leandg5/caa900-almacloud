@@ -9,14 +9,11 @@
 <style>
 :root { --navy: #0F1B2E; --gold: #B87333; --cream: #F2E9DC; }
 body { margin: 0; font-family: 'Montserrat', sans-serif; background: #EDE4D6; }
-header { background: var(--navy); padding: 18px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(184,115,51,0.2); }
-.header-brand { display: flex; flex-direction: column; gap: 3px; }
-header h1 { color: var(--gold); font-family: 'Cormorant Garamond', serif; margin: 0; font-size: 2.2rem; font-weight: 300; letter-spacing: 10px; text-transform: uppercase; line-height: 1; }
-header p { color: rgba(242,233,220,0.4); margin: 0; font-size: 0.55rem; letter-spacing: 5px; font-family: 'Montserrat', sans-serif; font-weight: 200; text-transform: uppercase; }
+header { position: absolute; top: 0; left: 0; right: 0; z-index: 10; background: linear-gradient(to bottom, rgba(15,27,46,0.7) 0%, rgba(15,27,46,0) 100%); padding: 22px 48px; display: flex; justify-content: flex-end; align-items: center; }
 nav { display: flex; align-items: center; gap: 8px; }
-nav a { color: rgba(242,233,220,0.85); text-decoration: none; padding: 6px 20px; font-size: 1.1rem; cursor: pointer; font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; transition: color 0.2s; }
+nav a { color: rgba(242,233,220,0.9); text-decoration: none; padding: 6px 20px; font-size: 1.1rem; cursor: pointer; font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; transition: color 0.2s; }
 nav a:hover { color: var(--gold); }
-.hero { width: 100%; }
+.hero { width: 100%; position: relative; }
 .hero img { width: 100%; display: block; height: auto; }
 .products { padding: 60px 40px; background: linear-gradient(160deg, #D6C9B8 0%, #C8B89A 30%, #D4C4A8 60%, #BFB09A 100%); }
 .products-header { text-align: center; margin-bottom: 48px; }
@@ -57,7 +54,6 @@ footer { background: var(--navy); color: var(--cream); text-align: center; paddi
 </head>
 <body>
 <header>
-  <div class="header-brand"><h1>ALMA</h1><p>Venezuelan Flavours Café</p></div>
   <nav>
     <a href="index.html">Products</a>
     <a href="cart.html">Cart <span class="cart-count" id="cartCount">0</span></a>
