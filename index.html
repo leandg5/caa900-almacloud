@@ -34,6 +34,9 @@ footer { background: var(--navy); color: var(--cream); text-align: center; paddi
 .modal-box button { background:var(--gold); color:var(--navy); border:none; padding:12px; width:100%; border-radius:6px; cursor:pointer; font-weight:600; margin-bottom:10px; }
 .loading { text-align:center; padding:40px; color:var(--navy); font-family:'Playfair Display',serif; }
 .cart-count { background:var(--gold); color:var(--navy); border-radius:50%; padding:2px 7px; font-size:0.75rem; font-weight:600; margin-left:5px; }
+.user-greeting { color: var(--gold); font-size: 0.85rem; margin-left: 20px; }
+.btn-logout { background: none; border: 1px solid var(--cream); color: var(--cream); padding: 4px 12px; border-radius: 20px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; margin-left: 10px; }
+.btn-logout:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
 </style>
 </head>
 <body>
@@ -42,7 +45,9 @@ footer { background: var(--navy); color: var(--cream); text-align: center; paddi
   <nav>
     <a href="index.html">Products</a>
     <a href="cart.html">Cart <span class="cart-count" id="cartCount">0</span></a>
-    <a onclick="openModal()">Login</a>
+    <span id="authNav">
+      <a onclick="openModal()">Login</a>
+    </span>
   </nav>
 </header>
 <div class="hero">
@@ -76,6 +81,31 @@ let isLogin = true;
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('alma-cart') || '[]');
   document.getElementById('cartCount').textContent = cart.length;
+}
+
+function checkAuthState() {
+  const cognitoUser = userPool.getCurrentUser();
+  if (cognitoUser) {
+    cognitoUser.getSession((err, session) => {
+      if (!err && session.isValid()) {
+        cognitoUser.getUserAttributes((err, attrs) => {
+          const emailAttr = attrs && attrs.find(a => a.Name === 'email');
+          const email = emailAttr ? emailAttr.Value : cognitoUser.getUsername();
+          const name = email.split('@')[0];
+          document.getElementById('authNav').innerHTML = `
+            <span class="user-greeting">Hi, ${name}</span>
+            <button class="btn-logout" onclick="handleLogout()">Logout</button>
+          `;
+        });
+      }
+    });
+  }
+}
+
+function handleLogout() {
+  const cognitoUser = userPool.getCurrentUser();
+  if (cognitoUser) cognitoUser.signOut();
+  document.getElementById('authNav').innerHTML = `<a onclick="openModal()">Login</a>`;
 }
 
 function addToCart(id, name, category, price) {
@@ -120,7 +150,10 @@ function handleAuth() {
     const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({ Username: email, Password: password });
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser({ Username: email, Pool: userPool });
     cognitoUser.authenticateUser(authDetails, {
-      onSuccess: () => { alert('Welcome to ALMA!'); document.getElementById('authModal').classList.remove('active'); },
+      onSuccess: () => {
+        document.getElementById('authModal').classList.remove('active');
+        checkAuthState();
+      },
       onFailure: (err) => alert(err.message)
     });
   } else {
@@ -135,7 +168,7 @@ function handleAuth() {
 
 loadProducts();
 updateCartCount();
+checkAuthState();
 </script>
 </body>
-</html> 
-
+</html>
