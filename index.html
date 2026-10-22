@@ -37,6 +37,10 @@ footer { background: var(--navy); color: var(--cream); text-align: center; paddi
 .user-greeting { color: var(--gold); font-size: 0.85rem; margin-left: 20px; }
 .btn-logout { background: none; border: 1px solid var(--cream); color: var(--cream); padding: 4px 12px; border-radius: 20px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; margin-left: 10px; }
 .btn-logout:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.filters { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+.filter-btn { background: white; color: var(--navy); border: 2px solid var(--navy); padding: 8px 24px; border-radius: 30px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; transition: all 0.2s; }
+.filter-btn:hover { background: var(--navy); color: var(--cream); }
+.filter-btn.active { background: var(--gold); color: var(--navy); border-color: var(--gold); }
 </style>
 </head>
 <body>
@@ -56,6 +60,12 @@ footer { background: var(--navy); color: var(--cream); text-align: center; paddi
 </div>
 <div class="products">
   <h2>Our Products</h2>
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterProducts('All')">All</button>
+    <button class="filter-btn" onclick="filterProducts('Beverages')">Beverages</button>
+    <button class="filter-btn" onclick="filterProducts('Bakery')">Bakery</button>
+    <button class="filter-btn" onclick="filterProducts('Market')">Market</button>
+  </div>
   <div class="grid" id="productsGrid">
     <div class="loading">Loading products...</div>
   </div>
@@ -77,6 +87,36 @@ const API_URL = 'https://dnkjlq3ie4.execute-api.us-east-1.amazonaws.com/products
 const poolData = { UserPoolId: 'us-east-1_2j5XfbyQ8', ClientId: '6hahghern9ph1b6no8mqo6l4p1' };
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 let isLogin = true;
+let allProducts = [];
+let activeFilter = 'All';
+
+function filterProducts(category) {
+  activeFilter = category;
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === category);
+  });
+  const filtered = category === 'All' ? allProducts : allProducts.filter(p => p.category === category);
+  renderProducts(filtered);
+}
+
+function renderProducts(products) {
+  const grid = document.getElementById('productsGrid');
+  grid.innerHTML = '';
+  if (products.length === 0) {
+    grid.innerHTML = '<div class="loading">No products in this category.</div>';
+    return;
+  }
+  products.forEach(product => {
+    grid.innerHTML += `
+      <div class="card">
+        <div class="category">${product.category}</div>
+        <h3>${product.name}</h3>
+        <p>${product.description}</p>
+        <div class="price">$${product.price}</div>
+        <button class="btn" onclick="addToCart('${product.id}', '${product.name}', '${product.category}', ${product.price})">Add to Cart</button>
+      </div>`;
+  });
+}
 
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem('alma-cart') || '[]');
@@ -119,19 +159,8 @@ function addToCart(id, name, category, price) {
 async function loadProducts() {
   try {
     const response = await fetch(API_URL);
-    const products = await response.json();
-    const grid = document.getElementById('productsGrid');
-    grid.innerHTML = '';
-    products.forEach(product => {
-      grid.innerHTML += `
-        <div class="card">
-          <div class="category">${product.category}</div>
-          <h3>${product.name}</h3>
-          <p>${product.description}</p>
-          <div class="price">$${product.price}</div>
-          <button class="btn" onclick="addToCart('${product.id}', '${product.name}', '${product.category}', ${product.price})">Add to Cart</button>
-        </div>`;
-    });
+    allProducts = await response.json();
+    renderProducts(allProducts);
   } catch (error) {
     document.getElementById('productsGrid').innerHTML = '<div class="loading">Error loading products.</div>';
   }
