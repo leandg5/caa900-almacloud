@@ -14,15 +14,15 @@ header { background: var(--navy); padding: 18px 48px; display: flex; justify-con
 header h1 { color: var(--gold); font-family: 'Cormorant Garamond', serif; margin: 0; font-size: 2.2rem; font-weight: 300; letter-spacing: 10px; text-transform: uppercase; line-height: 1; }
 header p { color: rgba(242,233,220,0.4); margin: 0; font-size: 0.55rem; letter-spacing: 5px; font-family: 'Montserrat', sans-serif; font-weight: 200; text-transform: uppercase; }
 nav { display: flex; align-items: center; gap: 8px; }
-nav a { color: rgba(242,233,220,0.75); text-decoration: none; padding: 6px 20px; font-size: 0.9rem; cursor: pointer; font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; transition: color 0.2s; }
+nav a { color: rgba(242,233,220,0.85); text-decoration: none; padding: 6px 20px; font-size: 1.1rem; cursor: pointer; font-family: 'Cormorant Garamond', serif; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; transition: color 0.2s; }
 nav a:hover { color: var(--gold); }
-.hero { position: relative; text-align: center; overflow: hidden; }
+.hero { width: 100%; }
 .hero img { width: 100%; display: block; height: auto; }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,27,46,0.15) 0%, rgba(15,27,46,0.55) 45%, rgba(15,27,46,0.55) 65%, rgba(15,27,46,0.3) 100%); z-index: 1; }
-.hero-text { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; padding: 40px 20px; }
-.hero-text p { font-size: 0.75rem; letter-spacing: 10px; color: var(--cream); margin: 0; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 400; text-shadow: 0 1px 8px rgba(0,0,0,0.8); }
-.products { padding: 60px 40px; background: linear-gradient(180deg, #EDE4D6 0%, #E8DDD0 40%, #F0E8DB 100%); }
-.products h2 { font-family: 'Cormorant Garamond', serif; color: var(--navy); text-align: center; margin-bottom: 40px; font-size: 2rem; font-weight: 300; letter-spacing: 6px; text-transform: uppercase; }
+.products { padding: 60px 40px; background: linear-gradient(160deg, #D6C9B8 0%, #C8B89A 30%, #D4C4A8 60%, #BFB09A 100%); }
+.products-header { text-align: center; margin-bottom: 48px; }
+.products-header h2 { font-family: 'Cormorant Garamond', serif; color: var(--navy); margin: 0 0 10px; font-size: 2.4rem; font-weight: 300; letter-spacing: 8px; text-transform: uppercase; }
+.products-header .header-line { width: 50px; height: 1px; background: var(--gold); margin: 0 auto 10px; }
+.products-header p { font-family: 'Montserrat', sans-serif; font-size: 0.6rem; letter-spacing: 4px; color: rgba(15,27,46,0.45); text-transform: uppercase; margin: 0; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
 .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
 .card h3 { font-family: 'Playfair Display', serif; color: var(--navy); margin-bottom: 5px; }
@@ -68,13 +68,13 @@ footer { background: var(--navy); color: var(--cream); text-align: center; paddi
 </header>
 <div class="hero">
   <img src="showcase.png" alt="ALMA - Venezuelan Flavours">
-  <div class="hero-overlay"></div>
-  <div class="hero-text">
-    <p>Beverages &nbsp;·&nbsp; Bakery &nbsp;·&nbsp; Market</p>
-  </div>
 </div>
 <div class="products">
-  <h2>Our Products</h2>
+  <div class="products-header">
+    <h2>Our Products</h2>
+    <div class="header-line"></div>
+    <p>Handcrafted Venezuelan Flavours</p>
+  </div>
   <div class="search-bar">
     <input type="search" id="searchInput" name="product-search" placeholder="Search products..." oninput="searchProducts()" autocomplete="off" autocorrect="off" autocapitalize="off">
   </div>
