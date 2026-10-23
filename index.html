@@ -144,7 +144,7 @@ function renderProducts(products) {
   products.forEach(product => {
     const imgSrc = product.image
       ? product.image
-      : `img/${product.name.toLowerCase().replace(/[\s]+/g, '-').replace(/[^a-z0-9-]/g, '')}.jpg`;
+      : `img/${product.name.toLowerCase().replace(/[\s]+/g, '-').replace(/[^a-z0-9-]/g, '')}.png`;
     grid.innerHTML += `
       <div class="card">
         <img class="card-img" src="${imgSrc}" alt="${product.name}" onerror="this.style.display='none'">
