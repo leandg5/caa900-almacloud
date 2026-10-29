@@ -9,29 +9,27 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --gold: #C9A84C;
-      --gold-light: #E8C96A;
-      --dark: #0F0F0F;
-      --dark2: #1A1A1A;
-      --dark3: #222;
-      --border: #2E2E2E;
-      --text: #F0EDE8;
-      --text-muted: #999;
-      --success: #4CAF82;
-      --danger: #E05252;
+      --gold: #8B6914;
+      --gold-light: #C9A84C;
+      --bg: #F5F0E8;
+      --bg2: #FFFFFF;
+      --bg3: #EDE8DF;
+      --border: #D9D0C0;
+      --text: #1A1A1A;
+      --text-muted: #7A7060;
+      --success: #2E7D52;
+      --danger: #B03030;
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--dark);
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
     }
 
-    /* HEADER */
     header {
-      background: var(--dark2);
-      border-bottom: 1px solid var(--border);
+      background: #1A1410;
       padding: 0 2rem;
       display: flex;
       align-items: center;
@@ -41,52 +39,57 @@
 
     .logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      color: var(--gold);
-      letter-spacing: 0.05em;
+      color: var(--gold-light);
+      letter-spacing: 0.08em;
     }
 
-    .logo span { color: var(--text-muted); font-size: 0.8rem; font-family: 'Inter', sans-serif; font-weight: 300; margin-left: 0.5rem; }
+    .logo span {
+      color: #888;
+      font-size: 0.78rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      margin-left: 0.5rem;
+      letter-spacing: 0.04em;
+    }
 
     nav { display: flex; gap: 0.5rem; }
 
     .nav-pill {
-      padding: 0.4rem 1rem;
+      padding: 0.4rem 1.1rem;
       border-radius: 20px;
-      border: 1px solid var(--border);
+      border: 1px solid #444;
       background: transparent;
-      color: var(--text-muted);
+      color: #AAA;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
+      font-family: 'Inter', sans-serif;
       transition: all 0.2s;
+      letter-spacing: 0.04em;
     }
 
     .nav-pill.active, .nav-pill:hover {
-      background: var(--gold);
-      color: var(--dark);
-      border-color: var(--gold);
+      background: var(--gold-light);
+      color: #1A1410;
+      border-color: var(--gold-light);
       font-weight: 600;
     }
 
-    .header-right { display: flex; align-items: center; gap: 1rem; }
-
     .store-link {
-      color: var(--text-muted);
+      color: #AAA;
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
       transition: color 0.2s;
     }
-    .store-link:hover { color: var(--gold); }
+    .store-link:hover { color: var(--gold-light); }
 
-    /* MAIN */
     main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
 
-    /* TABS */
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* STAT CARDS */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -95,19 +98,19 @@
     }
 
     .stat-card {
-      background: var(--dark2);
+      background: var(--bg2);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1.5rem;
     }
 
     .stat-label {
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.7rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       color: var(--text-muted);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
     }
 
     .stat-value {
@@ -119,18 +122,16 @@
 
     .stat-value.gold { color: var(--gold); }
 
-    /* SECTION */
     .section-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 600;
       color: var(--text);
       margin-bottom: 1rem;
     }
 
-    /* TABLE */
     .table-wrap {
-      background: var(--dark2);
+      background: var(--bg2);
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
@@ -139,15 +140,15 @@
 
     table { width: 100%; border-collapse: collapse; }
 
-    thead { background: var(--dark3); }
+    thead { background: var(--bg3); }
 
     th {
       padding: 0.75rem 1rem;
       text-align: left;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       color: var(--text-muted);
       border-bottom: 1px solid var(--border);
     }
@@ -161,49 +162,59 @@
     }
 
     tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(255,255,255,0.02); }
+    tr:hover td { background: var(--bg3); }
 
     .badge {
       display: inline-block;
       padding: 0.25rem 0.65rem;
       border-radius: 20px;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
 
-    .badge-confirmed { background: rgba(76,175,130,0.15); color: var(--success); }
-    .badge-pending { background: rgba(201,168,76,0.15); color: var(--gold); }
+    .badge-confirmed { background: rgba(46,125,82,0.12); color: var(--success); }
+    .badge-pending { background: rgba(139,105,20,0.12); color: var(--gold); }
 
-    .amount { color: var(--gold); font-weight: 600; font-size: 0.9rem; }
+    .amount { color: var(--gold); font-weight: 600; }
 
     .empty-row td { text-align: center; color: var(--text-muted); padding: 2.5rem; }
 
-    /* PRODUCT FORM */
+    .order-id { font-size: 0.75rem; color: var(--text-muted); font-family: monospace; }
+
+    .items-list { font-size: 0.82rem; color: var(--text); }
+
     .card {
-      background: var(--dark2);
+      background: var(--bg2);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1.5rem;
       margin-bottom: 1.5rem;
     }
 
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    #formTitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
 
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
     .form-group.full { grid-column: 1 / -1; }
 
     label {
-      font-size: 0.78rem;
-      font-weight: 500;
+      font-size: 0.72rem;
+      font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
     }
 
     input, select, textarea {
-      background: var(--dark3);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 8px;
       color: var(--text);
@@ -214,11 +225,9 @@
       outline: none;
     }
 
-    input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold-light); }
 
     textarea { resize: vertical; min-height: 80px; }
-
-    select option { background: var(--dark3); }
 
     .btn-row { display: flex; gap: 0.75rem; margin-top: 1rem; }
 
@@ -229,38 +238,25 @@
       font-size: 0.875rem;
       font-weight: 600;
       cursor: pointer;
+      font-family: 'Inter', sans-serif;
       transition: all 0.2s;
     }
 
-    .btn-primary { background: var(--gold); color: var(--dark); }
-    .btn-primary:hover { background: var(--gold-light); }
+    .btn-primary { background: var(--gold-light); color: #1A1410; }
+    .btn-primary:hover { background: var(--gold); color: #fff; }
 
     .btn-ghost {
       background: transparent;
       color: var(--text-muted);
       border: 1px solid var(--border);
     }
-    .btn-ghost:hover { color: var(--text); border-color: #555; }
+    .btn-ghost:hover { color: var(--text); border-color: #999; }
 
-    .btn-danger { background: rgba(224,82,82,0.15); color: var(--danger); border: 1px solid rgba(224,82,82,0.3); }
-    .btn-danger:hover { background: rgba(224,82,82,0.25); }
+    .btn-danger { background: rgba(176,48,48,0.1); color: var(--danger); border: 1px solid rgba(176,48,48,0.25); font-size: 0.78rem; padding: 0.3rem 0.75rem; }
+    .btn-danger:hover { background: rgba(176,48,48,0.2); }
 
-    .btn-edit { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); font-size: 0.78rem; padding: 0.3rem 0.75rem; }
-    .btn-edit:hover { background: rgba(201,168,76,0.25); }
-
-    .btn-sm { font-size: 0.78rem; padding: 0.3rem 0.75rem; }
-
-    #formTitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 1rem;
-    }
-
-    .items-list { font-size: 0.82rem; color: var(--text-muted); }
-
-    .order-id { font-size: 0.78rem; color: var(--text-muted); font-family: monospace; }
+    .btn-edit { background: rgba(139,105,20,0.1); color: var(--gold); border: 1px solid rgba(139,105,20,0.25); font-size: 0.78rem; padding: 0.3rem 0.75rem; }
+    .btn-edit:hover { background: rgba(139,105,20,0.2); }
   </style>
 </head>
 <body>
@@ -271,14 +267,11 @@
     <button class="nav-pill active" onclick="switchTab('orders', this)">Dashboard</button>
     <button class="nav-pill" onclick="switchTab('products', this)">Products</button>
   </nav>
-  <div class="header-right">
-    <a href="index.html" class="store-link">View Store</a>
-  </div>
+  <a href="index.html" class="store-link">View Store</a>
 </header>
 
 <main>
 
-  <!-- ORDERS TAB -->
   <div id="tab-orders" class="tab-content active">
     <div class="stats-grid">
       <div class="stat-card">
@@ -315,7 +308,6 @@
     </div>
   </div>
 
-  <!-- PRODUCTS TAB -->
   <div id="tab-products" class="tab-content">
     <div class="card">
       <div id="formTitle">Add New Product</div>
@@ -389,26 +381,17 @@
     return new Date(date).toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
-  // ── ORDERS ──────────────────────────────────────────────
   async function loadOrders() {
     try {
       const res = await fetch(ORDERS_API);
       const data = await res.json();
-
-      // API returns { orders: [...] }
       const orders = Array.isArray(data) ? data : (data.orders || []);
 
-      // Stats
       document.getElementById('statOrders').textContent = orders.length;
       const revenue = orders.reduce((sum, o) => sum + parseFloat(o.total || 0), 0);
       document.getElementById('statRevenue').textContent = '$' + revenue.toFixed(2);
 
-      // Table — sorted newest first
-      const sorted = [...orders].sort((a, b) => {
-        const ta = a.createdAt || '';
-        const tb = b.createdAt || '';
-        return tb.localeCompare(ta);
-      }).slice(0, 10);
+      const sorted = [...orders].sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || '')).slice(0, 10);
 
       const tbody = document.getElementById('ordersBody');
       if (sorted.length === 0) {
@@ -425,20 +408,18 @@
         return `<tr>
           <td><span class="order-id">#${o.id}</span></td>
           <td>${o.email || '—'}</td>
-          <td><span class="items-list">${itemNames || '—'}</span><br><small style="color:var(--text-muted)">${itemCount} item${itemCount !== 1 ? 's' : ''}</small></td>
+          <td><span class="items-list">${itemNames || '—'}</span><br><small style="color:var(--text-muted);font-size:0.78rem">${itemCount} item${itemCount !== 1 ? 's' : ''}</small></td>
           <td><span class="amount">$${parseFloat(o.total).toFixed(2)}</span></td>
           <td>${o.createdAt ? fmt(o.createdAt) : '—'}</td>
           <td>${badge}</td>
         </tr>`;
       }).join('');
-
     } catch (err) {
       document.getElementById('ordersBody').innerHTML =
         '<tr class="empty-row"><td colspan="6">Could not load orders: ' + err.message + '</td></tr>';
     }
   }
 
-  // ── PRODUCTS ─────────────────────────────────────────────
   let allProducts = [];
 
   async function loadProducts() {
@@ -462,10 +443,9 @@
         <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-muted);font-size:0.82rem">${p.description || '—'}</td>
         <td style="display:flex;gap:0.5rem">
           <button class="btn btn-edit" onclick="editProduct('${p.id}')">Edit</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteProduct('${p.id}','${p.name.replace(/'/g,"\\'")}')">Delete</button>
+          <button class="btn btn-danger" onclick="deleteProduct('${p.id}','${p.name.replace(/'/g,"\\'")}')">Delete</button>
         </td>
       </tr>`).join('');
-
     } catch (err) {
       document.getElementById('productsBody').innerHTML =
         '<tr class="empty-row"><td colspan="5">Could not load products: ' + err.message + '</td></tr>';
@@ -482,7 +462,6 @@
     document.getElementById('pImage').value = p.image || '';
     document.getElementById('pDesc').value = p.description || '';
     document.getElementById('formTitle').textContent = 'Edit Product';
-    // Switch to products tab
     document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.nav-pill').forEach(b => b.classList.remove('active'));
     document.getElementById('tab-products').classList.add('active');
@@ -546,7 +525,6 @@
     }
   }
 
-  // Init
   loadOrders();
   loadProducts();
 </script>
