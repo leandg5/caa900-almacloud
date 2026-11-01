@@ -104,8 +104,13 @@ footer { background: var(--navy); color: var(--cream); text-align: center; paddi
     <h2 id="modalTitle">Login</h2>
     <input type="email" id="authEmail" placeholder="Email">
     <input type="password" id="authPassword" placeholder="Password">
-    <button onclick="handleAuth()">Continue</button>
-    <p style="text-align:center;cursor:pointer;color:var(--gold);" onclick="toggleMode()" id="toggleText">Don't have an account? Sign up</p>
+    <div id="resetCodeSection" style="display:none">
+      <input type="text" id="resetCode" placeholder="Verification code from email">
+      <input type="password" id="resetNewPassword" placeholder="New password">
+    </div>
+    <button id="authBtn" onclick="handleAuth()">Continue</button>
+    <p style="text-align:center;cursor:pointer;color:var(--gold);margin:0 0 8px" onclick="toggleMode()" id="toggleText">Don't have an account? Sign up</p>
+    <p style="text-align:center;cursor:pointer;color:#999;font-size:0.85rem;margin:0" onclick="toggleForgot()" id="forgotText">Forgot password?</p>
   </div>
 </div>
 
@@ -114,6 +119,8 @@ const API_URL = 'https://dnkjlq3ie4.execute-api.us-east-1.amazonaws.com/products
 const poolData = { UserPoolId: 'us-east-1_2j5XfbyQ8', ClientId: '6hahghern9ph1b6no8mqo6l4p1' };
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 let isLogin = true;
+let isForgot = false;
+let forgotUser = null;
 let allProducts = [];
 let activeFilter = 'All';
 
@@ -147,9 +154,7 @@ function renderProducts(products) {
     return;
   }
   products.forEach(product => {
-    const imgSrc = product.image
-      ? product.image
-      : `img/${toImageName(product.name)}.png`;
+    const imgSrc = product.image ? product.image : `img/${toImageName(product.name)}.png`;
     const imgHtml = `<div class="card-img-wrap"><img class="card-img" src="${imgSrc}" alt="${product.name}" onerror="this.parentElement.style.display='none'"></div>`;
     grid.innerHTML += `
       <div class="card">
@@ -213,12 +218,76 @@ async function loadProducts() {
   }
 }
 
-function openModal() { document.getElementById('authModal').classList.add('active'); }
+function openModal() {
+  isForgot = false;
+  isLogin = true;
+  document.getElementById('modalTitle').textContent = 'Login';
+  document.getElementById('authPassword').style.display = 'block';
+  document.getElementById('resetCodeSection').style.display = 'none';
+  document.getElementById('toggleText').style.display = 'block';
+  document.getElementById('forgotText').textContent = 'Forgot password?';
+  document.getElementById('authBtn').textContent = 'Continue';
+  document.getElementById('authBtn').onclick = handleAuth;
+  document.getElementById('authModal').classList.add('active');
+}
+
 function toggleMode() {
   isLogin = !isLogin;
   document.getElementById('modalTitle').textContent = isLogin ? 'Login' : 'Sign Up';
   document.getElementById('toggleText').textContent = isLogin ? "Don't have an account? Sign up" : 'Already have an account? Login';
+  document.getElementById('forgotText').style.display = isLogin ? 'block' : 'none';
 }
+
+function toggleForgot() {
+  isForgot = !isForgot;
+  if (isForgot) {
+    document.getElementById('modalTitle').textContent = 'Reset Password';
+    document.getElementById('authPassword').style.display = 'none';
+    document.getElementById('resetCodeSection').style.display = 'none';
+    document.getElementById('toggleText').style.display = 'none';
+    document.getElementById('forgotText').textContent = 'Back to login';
+    document.getElementById('authBtn').textContent = 'Send Code';
+    document.getElementById('authBtn').onclick = sendResetCode;
+  } else {
+    document.getElementById('modalTitle').textContent = 'Login';
+    document.getElementById('authPassword').style.display = 'block';
+    document.getElementById('resetCodeSection').style.display = 'none';
+    document.getElementById('toggleText').style.display = 'block';
+    document.getElementById('forgotText').textContent = 'Forgot password?';
+    document.getElementById('authBtn').textContent = 'Continue';
+    document.getElementById('authBtn').onclick = handleAuth;
+  }
+}
+
+function sendResetCode() {
+  const email = document.getElementById('authEmail').value;
+  if (!email) { alert('Enter your email first.'); return; }
+  forgotUser = new AmazonCognitoIdentity.CognitoUser({ Username: email, Pool: userPool });
+  forgotUser.forgotPassword({
+    onSuccess: () => {},
+    onFailure: (err) => alert(err.message),
+    inputVerificationCode: () => {
+      document.getElementById('resetCodeSection').style.display = 'block';
+      document.getElementById('authBtn').textContent = 'Reset Password';
+      document.getElementById('authBtn').onclick = confirmReset;
+      alert('Check your email for the verification code.');
+    }
+  });
+}
+
+function confirmReset() {
+  const code = document.getElementById('resetCode').value;
+  const newPassword = document.getElementById('resetNewPassword').value;
+  if (!code || !newPassword) { alert('Enter the code and your new password.'); return; }
+  forgotUser.confirmPassword(code, newPassword, {
+    onSuccess: () => {
+      alert('Password reset successfully. You can now log in.');
+      toggleForgot();
+    },
+    onFailure: (err) => alert(err.message)
+  });
+}
+
 function handleAuth() {
   const email = document.getElementById('authEmail').value;
   const password = document.getElementById('authPassword').value;
