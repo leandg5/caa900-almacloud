@@ -49,7 +49,7 @@
 
     .login-overlay { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 200; align-items: center; justify-content: center; }
     .login-overlay.show { display: flex; }
-    .login-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; width: 360px; }
+    .login-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; width: 380px; }
     .login-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
     .login-sub { font-size: 0.8rem; color: var(--muted2); margin-bottom: 2rem; }
     .login-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
@@ -59,6 +59,7 @@
     .btn-login { width: 100%; padding: 0.75rem; background: var(--gold); color: #0C0C0C; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 0.5rem; transition: background 0.15s; }
     .btn-login:hover { background: var(--gold2); }
     .login-error { font-size: 0.8rem; color: #F87171; margin-top: 0.75rem; min-height: 1.1em; }
+    .login-info { font-size: 0.8rem; color: var(--gold); margin-top: 0.5rem; }
 
     .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
     .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.2s; }
@@ -137,19 +138,37 @@
 </head>
 <body>
 
+<!-- LOGIN -->
 <div class="login-overlay show" id="loginOverlay">
   <div class="login-box">
     <div class="login-title">ALMA</div>
-    <div class="login-sub">Admin access only. Sign in with your admin account.</div>
-    <div class="login-group">
-      <div class="login-label">Email</div>
-      <input class="login-input" type="email" id="loginEmail" placeholder="admin@example.com" />
+    <div class="login-sub" id="loginSub">Admin access only. Sign in with your admin account.</div>
+
+    <div id="stepLogin">
+      <div class="login-group">
+        <div class="login-label">Email</div>
+        <input class="login-input" type="email" id="loginEmail" placeholder="admin@example.com" />
+      </div>
+      <div class="login-group">
+        <div class="login-label">Password</div>
+        <input class="login-input" type="password" id="loginPassword" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
+      </div>
+      <button class="btn-login" onclick="doLogin()">Sign In</button>
     </div>
-    <div class="login-group">
-      <div class="login-label">Password</div>
-      <input class="login-input" type="password" id="loginPassword" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
+
+    <div id="stepNewPassword" style="display:none">
+      <div class="login-info" style="margin-bottom:1rem">A new password is required to continue.</div>
+      <div class="login-group">
+        <div class="login-label">New Password</div>
+        <input class="login-input" type="password" id="newPassword" placeholder="Min. 8 characters" onkeydown="if(event.key==='Enter')doNewPassword()" />
+      </div>
+      <div class="login-group">
+        <div class="login-label">Confirm New Password</div>
+        <input class="login-input" type="password" id="confirmPassword" placeholder="Repeat password" onkeydown="if(event.key==='Enter')doNewPassword()" />
+      </div>
+      <button class="btn-login" onclick="doNewPassword()">Set New Password</button>
     </div>
-    <button class="btn-login" onclick="doLogin()">Sign In</button>
+
     <div class="login-error" id="loginError"></div>
   </div>
 </div>
@@ -240,6 +259,9 @@
   const ORDERS_API   = 'https://dnkjlq3ie4.execute-api.us-east-1.amazonaws.com/orders';
   const POOL_DATA    = { UserPoolId: 'us-east-1_d2rh43', ClientId: '6hahghern9ph1b6no8mqo6l4p1' };
 
+  let pendingCognitoUser = null;
+  let pendingEmail       = '';
+
   function getToken() {
     const pool = new AmazonCognitoIdentity.CognitoUserPool(POOL_DATA);
     const user = pool.getCurrentUser();
@@ -264,6 +286,13 @@
     loadProducts();
   }
 
+  function showNewPasswordStep() {
+    document.getElementById('stepLogin').style.display = 'none';
+    document.getElementById('stepNewPassword').style.display = 'block';
+    document.getElementById('loginSub').textContent = 'Set a new password to continue.';
+    document.getElementById('loginError').textContent = '';
+  }
+
   async function doLogin() {
     const email    = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
@@ -271,9 +300,11 @@
     errEl.textContent = '';
     if (!email || !password) { errEl.textContent = 'Enter your email and password.'; return; }
 
+    pendingEmail = email;
     const pool        = new AmazonCognitoIdentity.CognitoUserPool(POOL_DATA);
     const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({ Username: email, Password: password });
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser({ Username: email, Pool: pool });
+    pendingCognitoUser = cognitoUser;
 
     cognitoUser.authenticateUser(authDetails, {
       onSuccess: (session) => {
@@ -287,7 +318,33 @@
           showAdmin(email);
         } catch (e) { errEl.textContent = 'Authentication error.'; }
       },
-      onFailure: (err) => { errEl.textContent = err.message || 'Login failed.'; }
+      onFailure: (err) => { errEl.textContent = err.message || 'Login failed.'; },
+      newPasswordRequired: () => { showNewPasswordStep(); }
+    });
+  }
+
+  function doNewPassword() {
+    const newPw      = document.getElementById('newPassword').value;
+    const confirmPw  = document.getElementById('confirmPassword').value;
+    const errEl      = document.getElementById('loginError');
+    errEl.textContent = '';
+
+    if (!newPw || newPw.length < 8) { errEl.textContent = 'Password must be at least 8 characters.'; return; }
+    if (newPw !== confirmPw) { errEl.textContent = 'Passwords do not match.'; return; }
+
+    pendingCognitoUser.completeNewPasswordChallenge(newPw, {}, {
+      onSuccess: (session) => {
+        try {
+          const payload = JSON.parse(atob(session.getAccessToken().getJwtToken().split('.')[1]));
+          if (!(payload['cognito:groups'] || []).includes('Admins')) {
+            errEl.textContent = 'Access denied. Admin privileges required.';
+            pendingCognitoUser.signOut();
+            return;
+          }
+          showAdmin(pendingEmail);
+        } catch (e) { errEl.textContent = 'Authentication error.'; }
+      },
+      onFailure: (err) => { errEl.textContent = err.message || 'Failed to set new password.'; }
     });
   }
 
@@ -296,12 +353,14 @@
     const user = pool.getCurrentUser();
     if (user) user.signOut();
     document.getElementById('loginOverlay').classList.add('show');
+    document.getElementById('stepLogin').style.display = 'block';
+    document.getElementById('stepNewPassword').style.display = 'none';
+    document.getElementById('loginSub').textContent = 'Admin access only. Sign in with your admin account.';
     document.getElementById('loginEmail').value = '';
     document.getElementById('loginPassword').value = '';
     document.getElementById('loginError').textContent = '';
   }
 
-  // Auto-login si ya hay sesión activa
   (async () => {
     const pool = new AmazonCognitoIdentity.CognitoUserPool(POOL_DATA);
     const user = pool.getCurrentUser();
