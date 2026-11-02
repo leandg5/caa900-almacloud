@@ -257,7 +257,7 @@
 <script>
   const PRODUCTS_API = 'https://dnkjlq3ie4.execute-api.us-east-1.amazonaws.com/products';
   const ORDERS_API   = 'https://dnkjlq3ie4.execute-api.us-east-1.amazonaws.com/orders';
-  const POOL_DATA    = { UserPoolId: 'us-east-1_d2rh43', ClientId: '6hahghern9ph1b6no8mqo6l4p1' };
+  const POOL_DATA    = { UserPoolId: 'us-east-1_2j5XfbyQ8', ClientId: '6hahghern9ph1b6no8mqo6l4p1' };
 
   let pendingCognitoUser = null;
   let pendingEmail       = '';
@@ -370,7 +370,8 @@
       try {
         const payload = JSON.parse(atob(session.getAccessToken().getJwtToken().split('.')[1]));
         if ((payload['cognito:groups'] || []).includes('Admins')) {
-          showAdmin(user.getUsername());
+          const email = payload.email || payload.username || user.getUsername();
+          showAdmin(email);
         }
       } catch (e) {}
     });
