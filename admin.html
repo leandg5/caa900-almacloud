@@ -24,7 +24,6 @@
       --sidebar-w: 240px;
     }
     body { font-family: 'Inter', sans-serif; background: var(--cream2); color: var(--text); min-height: 100vh; display: flex; }
-
     .sidebar { width: var(--sidebar-w); background: var(--navy); border-right: 1px solid rgba(184,115,51,0.2); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 10; }
     .sidebar-brand { padding: 1.75rem 1.5rem 1.25rem; border-bottom: 1px solid rgba(184,115,51,0.2); }
     .brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; line-height: 1; }
@@ -38,7 +37,6 @@
     .sidebar-footer { padding: 1rem 1.25rem; border-top: 1px solid rgba(184,115,51,0.2); }
     .store-btn { display: block; text-align: center; padding: 0.6rem; border-radius: 8px; border: 1px solid rgba(242,237,230,0.15); color: rgba(242,237,230,0.55); text-decoration: none; font-size: 0.8rem; transition: all 0.15s; }
     .store-btn:hover { border-color: var(--gold); color: var(--gold); }
-
     .main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
     .topbar { padding: 1.25rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--cream); box-shadow: 0 1px 4px rgba(15,27,46,0.06); }
     .page-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--navy); letter-spacing: 0.04em; }
@@ -51,11 +49,9 @@
     .status-dot { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--green); }
     .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
     .content { padding: 2rem; flex: 1; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-
     .login-overlay { display: none; position: fixed; inset: 0; background: var(--cream2); z-index: 200; align-items: center; justify-content: center; }
     .login-overlay.show { display: flex; }
     .login-box { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; width: 380px; box-shadow: 0 8px 30px rgba(15,27,46,0.08); }
@@ -69,22 +65,19 @@
     .btn-login:hover { background: var(--gold); color: var(--navy); }
     .login-error { font-size: 0.8rem; color: #dc2626; margin-top: 0.75rem; min-height: 1.1em; }
     .login-info { font-size: 0.8rem; color: var(--gold); margin-top: 0.5rem; }
-
     .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
-    .stat-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s; }
+    .stat-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; transition: border-color 0.2s, box-shadow 0.2s; }
     .stat-card:hover { border-color: rgba(184,115,51,0.3); box-shadow: 0 4px 16px rgba(15,27,46,0.06); }
     .stat-icon { font-size: 1.4rem; margin-bottom: 1rem; display: block; }
     .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.5rem; }
     .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 700; color: var(--navy); line-height: 1; }
     .stat-value.gold { color: var(--gold); }
     .stat-trend { font-size: 0.75rem; color: var(--green); margin-top: 0.5rem; display: flex; align-items: center; gap: 0.25rem; }
-
     .dashboard-grid { display: grid; grid-template-columns: 1fr 320px; gap: 1.25rem; }
     .panel { background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 2px 8px rgba(15,27,46,0.04); }
-    .panel-header { padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: white; }
+    .panel-header { padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
     .panel-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--navy); letter-spacing: 0.03em; }
     .panel-badge { font-size: 0.7rem; background: var(--gold-dim); color: var(--gold); padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600; }
-
     table { width: 100%; border-collapse: collapse; }
     th { padding: 0.7rem 1.25rem; text-align: left; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); border-bottom: 1px solid var(--border); background: var(--cream); }
     td { padding: 0.85rem 1.25rem; font-size: 0.83rem; color: var(--text); border-bottom: 1px solid var(--border); vertical-align: middle; }
@@ -94,11 +87,10 @@
     .badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
     .badge-confirmed { background: var(--green-dim); color: var(--green); }
     .badge-pending { background: var(--gold-dim); color: var(--gold); }
-    .amount { color: var(--gold); font-weight: 600; font-variant-numeric: tabular-nums; }
+    .amount { color: var(--gold); font-weight: 600; }
     .order-id { font-size: 0.72rem; color: var(--muted); font-family: monospace; }
     .item-names { font-size: 0.8rem; color: var(--navy); }
     .item-count { font-size: 0.72rem; color: var(--muted2); }
-
     .revenue-list { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 1rem; }
     .rev-item { display: flex; flex-direction: column; gap: 0.4rem; }
     .rev-meta { display: flex; justify-content: space-between; align-items: center; }
@@ -107,7 +99,6 @@
     .rev-bar-bg { height: 4px; background: var(--cream3); border-radius: 4px; overflow: hidden; }
     .rev-bar { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2)); border-radius: 4px; transition: width 0.8s ease; }
     .empty-row td { text-align: center; color: var(--muted); padding: 3rem; }
-
     .product-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
     .page-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; letter-spacing: 0.04em; color: var(--navy); }
     .btn { padding: 0.6rem 1.25rem; border-radius: 8px; border: none; font-size: 0.83rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
@@ -118,7 +109,6 @@
     .btn-edit { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(184,115,51,0.2); font-size: 0.75rem; padding: 0.28rem 0.7rem; }
     .btn-del { background: rgba(220,38,38,0.07); color: #dc2626; border: 1px solid rgba(220,38,38,0.2); font-size: 0.75rem; padding: 0.28rem 0.7rem; }
     .btn-del:hover { background: rgba(220,38,38,0.14); }
-
     .form-overlay { display: none; position: fixed; inset: 0; background: rgba(15,27,46,0.4); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; }
     .form-overlay.open { display: flex; }
     .form-modal { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 2rem; width: 520px; max-width: 95vw; box-shadow: 0 16px 40px rgba(15,27,46,0.12); }
@@ -132,12 +122,11 @@
     select option { background: white; }
     textarea { resize: vertical; min-height: 80px; }
     .modal-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; justify-content: flex-end; }
-
     .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
     .product-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
     .product-card:hover { border-color: rgba(184,115,51,0.3); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(15,27,46,0.06); }
     .product-card-cat { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 0.4rem; }
-    .product-card-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.15rem; margin-bottom: 0.35rem; letter-spacing: 0.02em; color: var(--navy); }
+    .product-card-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.15rem; margin-bottom: 0.35rem; color: var(--navy); }
     .product-card-desc { font-size: 0.78rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; min-height: 36px; }
     .product-card-footer { display: flex; align-items: center; justify-content: space-between; }
     .product-card-price { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--gold); }
@@ -204,7 +193,6 @@
       <div class="status-dot"><span class="dot"></span> Live</div>
     </div>
   </div>
-
   <div class="content">
     <div id="tab-orders" class="tab-content active">
       <div class="stats-grid">
@@ -226,7 +214,6 @@
         </div>
       </div>
     </div>
-
     <div id="tab-products" class="tab-content">
       <div class="product-toolbar">
         <div class="page-heading">Products</div>
@@ -303,13 +290,11 @@
     const errEl    = document.getElementById('loginError');
     errEl.textContent = '';
     if (!email || !password) { errEl.textContent = 'Enter your email and password.'; return; }
-
     pendingEmail = email;
     const pool        = new AmazonCognitoIdentity.CognitoUserPool(POOL_DATA);
     const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({ Username: email, Password: password });
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser({ Username: email, Pool: pool });
     pendingCognitoUser = cognitoUser;
-
     cognitoUser.authenticateUser(authDetails, {
       onSuccess: (session) => {
         try {
@@ -334,7 +319,6 @@
     errEl.textContent = '';
     if (!newPw || newPw.length < 8) { errEl.textContent = 'Password must be at least 8 characters.'; return; }
     if (newPw !== confirmPw) { errEl.textContent = 'Passwords do not match.'; return; }
-
     pendingCognitoUser.completeNewPasswordChallenge(newPw, {}, {
       onSuccess: (session) => {
         try {
@@ -393,6 +377,15 @@
     return new Date(date).toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
   }
 
+  function parseItems(raw) {
+    if (Array.isArray(raw)) return raw;
+    if (typeof raw === 'string') {
+      try { const parsed = JSON.parse(raw); return Array.isArray(parsed) ? parsed : []; }
+      catch (e) { return []; }
+    }
+    return [];
+  }
+
   async function loadOrders() {
     try {
       const res = await fetch(ORDERS_API, { headers: await authHeaders() });
@@ -425,8 +418,8 @@
       if (!recent.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No orders yet.</td></tr>'; return; }
 
       tbody.innerHTML = recent.map(o => {
-        const itemsArr = typeof o.items === 'string' ? JSON.parse(o.items) : (o.items || []);
-        const names = itemsArr.map(i => i.name).join(', ');
+        const itemsArr = parseItems(o.items);
+        const names = itemsArr.length ? itemsArr.map(i => i.name || '').join(', ') : '—';
         const count = itemsArr.length;
         const badge = o.status === 'confirmed'
           ? '<span class="badge badge-confirmed">Confirmed</span>'
@@ -434,8 +427,8 @@
         return `<tr>
           <td><div class="order-id">#${o.id}</div><div style="font-size:0.72rem;color:var(--muted2)">${o.createdAt ? fmt(o.createdAt) : ''}</div></td>
           <td style="font-size:0.8rem;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${o.email||'—'}</td>
-          <td><div class="item-names">${names||'—'}</div><div class="item-count">${count} item${count!==1?'s':''}</div></td>
-          <td><span class="amount">$${parseFloat(o.total).toFixed(2)}</span></td>
+          <td><div class="item-names">${names}</div><div class="item-count">${count} item${count!==1?'s':''}</div></td>
+          <td><span class="amount">$${parseFloat(o.total||0).toFixed(2)}</span></td>
           <td>${badge}</td>
         </tr>`;
       }).join('');
