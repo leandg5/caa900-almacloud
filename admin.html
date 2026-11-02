@@ -32,7 +32,7 @@
 
     .main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
     .topbar { padding: 1.25rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface); }
-    .page-title { font-size: 1.1rem; font-weight: 600; color: var(--text); }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--text); letter-spacing: 0.04em; }
     .page-sub { font-size: 0.8rem; color: var(--muted2); margin-top: 0.1rem; }
     .topbar-right { display: flex; align-items: center; gap: 1.25rem; }
     .user-pill { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--muted2); background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 0.3rem 0.85rem; }
@@ -67,14 +67,14 @@
     .stat-card::before { content: ''; position: absolute; top: 0; right: 0; width: 80px; height: 80px; background: radial-gradient(circle at top right, rgba(201,168,76,0.08), transparent 70%); }
     .stat-icon { font-size: 1.4rem; margin-bottom: 1rem; display: block; }
     .stat-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted2); margin-bottom: 0.5rem; }
-    .stat-value { font-size: 2.2rem; font-weight: 700; color: var(--text); line-height: 1; font-variant-numeric: tabular-nums; }
+    .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 700; color: var(--text); line-height: 1; }
     .stat-value.gold { color: var(--gold); }
     .stat-trend { font-size: 0.75rem; color: var(--green); margin-top: 0.5rem; display: flex; align-items: center; gap: 0.25rem; }
 
     .dashboard-grid { display: grid; grid-template-columns: 1fr 320px; gap: 1.25rem; }
     .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
     .panel-header { padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .panel-title { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .panel-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--text); letter-spacing: 0.03em; }
     .panel-badge { font-size: 0.7rem; background: var(--gold-dim); color: var(--gold); padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600; }
 
     table { width: 100%; border-collapse: collapse; }
@@ -101,7 +101,7 @@
     .empty-row td { text-align: center; color: var(--muted2); padding: 3rem; }
 
     .product-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
-    .page-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; }
+    .page-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; letter-spacing: 0.04em; }
     .btn { padding: 0.6rem 1.25rem; border-radius: 8px; border: none; font-size: 0.83rem; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
     .btn-primary { background: var(--gold); color: #0C0C0C; }
     .btn-primary:hover { background: var(--gold2); }
@@ -114,7 +114,7 @@
     .form-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; }
     .form-overlay.open { display: flex; }
     .form-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; width: 520px; max-width: 95vw; }
-    .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 1.5rem; }
+    .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: 0.04em; }
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
     .form-group.full { grid-column: 1 / -1; }
@@ -129,10 +129,10 @@
     .product-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; transition: border-color 0.2s, transform 0.2s; }
     .product-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-2px); }
     .product-card-cat { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 0.4rem; }
-    .product-card-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.35rem; }
+    .product-card-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.15rem; margin-bottom: 0.35rem; letter-spacing: 0.02em; }
     .product-card-desc { font-size: 0.78rem; color: var(--muted2); margin-bottom: 1rem; line-height: 1.5; min-height: 36px; }
     .product-card-footer { display: flex; align-items: center; justify-content: space-between; }
-    .product-card-price { font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+    .product-card-price { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--gold); }
     .card-actions { display: flex; gap: 0.5rem; }
   </style>
 </head>
