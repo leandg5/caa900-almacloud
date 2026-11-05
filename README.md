@@ -6,6 +6,7 @@
 | Name | GitHub username |
 |---|---|
 | Leandro Delgado | leandg5 |
+| Sharun Manakkara | psromeo02 |
 
 ## OPC Persona
 
