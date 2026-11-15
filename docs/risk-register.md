@@ -35,4 +35,4 @@ Last reviewed: 2026-11-14 by Leandro Delgado
 
 | Date | Account (whose) | Credit used to date | Change since last entry | Biggest cost item | Note |
 |---|---|---|---|---|---|
-| 2026-11-14 | Leandro Delgado, AWS Learner Lab | ~$18 USD | ~$18 USD | S3 + CloudFront | Amplify hosting, S3 storage, CloudFront distribution, API Gateway, Lambda, DynamoDB; all serverless to minimize cost |
+| 2026-11-14 | Leandro Delgado, AWS Learner Lab | ~$0.70 USD | ~$0.70 USD | S3 + CloudFront | Amplify hosting, S3 storage, CloudFront distribution, API Gateway, Lambda, DynamoDB; all serverless to minimize cost. $49.30 of $50 remaining. 
