@@ -6,9 +6,31 @@ on:
       - main
 
 jobs:
+  sonarcloud-scan:
+    name: SonarCloud Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=leandg5
+            -Dsonar.projectKey=leandg5_caa900-almacloud
+            -Dsonar.sources=.
+            -Dsonar.host.url=https://sonarcloud.io
+
   deploy-frontend:
     name: Deploy Frontend to S3
     runs-on: ubuntu-latest
+    needs: sonarcloud-scan
 
     steps:
       - name: Checkout code
