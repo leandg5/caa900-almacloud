@@ -29,6 +29,39 @@ resource "aws_s3_bucket_website_configuration" "frontend" {
   }
 }
 
+# S3 Bucket Logging - security requirement
+resource "aws_s3_bucket_logging" "frontend" {
+  bucket        = aws_s3_bucket.frontend.id
+  target_bucket = aws_s3_bucket.frontend.id
+  target_prefix = "access-logs/"
+}
+
+# HTTPS-only bucket policy - enforces encrypted transit
+resource "aws_s3_bucket_policy" "frontend_https_only" {
+  bucket = aws_s3_bucket.frontend.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "DenyNonHTTPS"
+        Effect    = "Deny"
+        Principal = "*"
+        Action    = "s3:*"
+        Resource = [
+          "${aws_s3_bucket.frontend.arn}",
+          "${aws_s3_bucket.frontend.arn}/*"
+        ]
+        Condition = {
+          Bool = {
+            "aws:SecureTransport" = "false"
+          }
+        }
+      }
+    ]
+  })
+}
+
 # DynamoDB - Products Table
 resource "aws_dynamodb_table" "products" {
   name         = "Alma-products"
