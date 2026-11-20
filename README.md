@@ -8,6 +8,19 @@
 | Leandro Delgado | leandg5 |
 | Sharun Manakkara | psromeo02 |
 
+## Architecture
+![Architecture Diagram](docs/alma-architecture-v2.jpeg)
+
+- Frontend: AWS Amplify + CloudFront
+- API: Amazon API Gateway (HTTP API)
+- Backend: AWS Lambda (Node.js 24.x) — 3 functions
+- Database: Amazon DynamoDB — 2 tables
+- Auth: Amazon Cognito User Pool
+- Payments: Stripe (sandbox)
+- Email: Resend API
+- IaC: Terraform
+- CI/CD: GitHub Actions
+
 ## OPC Persona
 
 ALMA is a premium Venezuelan food and beverage brand based in Toronto. The owner sells artisan drinks, baked goods, and gourmet pantry products across three lines: Beverages, Bakery, and Market. Today the owner manages all orders manually through Instagram DMs and WhatsApp, tracks inventory in a notebook, and has no system to accept online payments.
